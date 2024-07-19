@@ -11,6 +11,15 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  String text1 = "Sample text";
+
+  changeText({required String todotext}) {
+    setState(() {
+      text1 = "$todotext";
+      print("clicked");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +33,15 @@ class _MainScreenState extends State<MainScreen> {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
-                  return Container(
-                    padding: EdgeInsets.all(20),
-                    height: 250,
-                    child: AddTodo(),
+                  return Padding(
+                    padding: MediaQuery.of(context).viewInsets,
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      height: 250,
+                      child: AddTodo(
+                        changeTextfun: changeText,
+                      ),
+                    ),
                   );
                 },
               );
@@ -42,7 +56,9 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: Container(),
+      body: Container(
+        child: Text("$text1"),
+      ),
     );
   }
 }
