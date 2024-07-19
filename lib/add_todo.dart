@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 class AddTodo extends StatefulWidget {
-  Function({required String todotext}) changeTextfun;
-  AddTodo({super.key, required this.changeTextfun});
+  Function({required String todotext}) addtodo;
+  AddTodo({super.key, required this.addtodo});
 
   @override
   State<AddTodo> createState() => _AddTodoState();
@@ -24,6 +24,7 @@ class _AddTodoState extends State<AddTodo> {
           ),
         ),
         TextField(
+          autofocus: true,
           controller: todotext,
           decoration: InputDecoration(
             hintText: "Enter Your TODO Task....",
@@ -37,8 +38,10 @@ class _AddTodoState extends State<AddTodo> {
         ),
         OutlinedButton(
           onPressed: () {
-            print(todotext.text);
-            widget.changeTextfun(todotext: todotext.text);
+            if (todotext.text.isNotEmpty) {
+              widget.addtodo(todotext: todotext.text);
+            }
+
             todotext.text = "";
           },
           child: Text(
