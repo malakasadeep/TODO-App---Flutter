@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/add_todo.dart';
+import 'package:todo_app/widgets/todolist.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -65,66 +66,42 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("TODO App"),
-        actions: [
-          InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: MediaQuery.of(context).viewInsets,
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      height: 250,
-                      child: AddTodo(
-                        addtodo: addtodo,
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            splashColor: Colors.blueAccent,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.add,
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: ListView.builder(
-          itemCount: todolist.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
+        drawer: Drawer(),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("TODO App"),
+          actions: [
+            InkWell(
               onTap: () {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    return Container(
+                    return Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: Container(
                         padding: EdgeInsets.all(20),
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              todolist.removeAt(index);
-                              Navigator.pop(context);
-                            });
-                            updateLocalData();
-                          },
-                          child: Text("Mark As Done"),
-                        ));
+                        height: 250,
+                        child: AddTodo(
+                          addtodo: addtodo,
+                        ),
+                      ),
+                    );
                   },
                 );
               },
-              title: Text(todolist[index]),
-            );
-          }),
-    );
+              splashColor: Colors.blueAccent,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.add,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: TodoListBulider(
+          todolist: todolist,
+          updateLocalData: updateLocalData,
+        ));
   }
 }
