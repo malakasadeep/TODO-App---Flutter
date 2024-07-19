@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/add_todo.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -18,14 +19,30 @@ class _MainScreenState extends State<MainScreen> {
         centerTitle: true,
         title: Text("TODO App"),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.add,
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    padding: EdgeInsets.all(20),
+                    height: 250,
+                    child: AddTodo(),
+                  );
+                },
+              );
+            },
+            splashColor: Colors.blueAccent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.add,
+              ),
             ),
           ),
         ],
       ),
+      body: Container(),
     );
   }
 }
