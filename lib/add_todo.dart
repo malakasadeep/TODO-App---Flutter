@@ -15,43 +15,47 @@ class _AddTodoState extends State<AddTodo> {
   TextEditingController todotext = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          "Add TODO :",
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        TextField(
-          autofocus: true,
-          controller: todotext,
-          decoration: InputDecoration(
-            hintText: "Enter Your TODO Task....",
-          ),
-          style: TextStyle(
-            fontSize: 14,
-          ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        OutlinedButton(
-          onPressed: () {
-            if (todotext.text.isNotEmpty) {
-              widget.addtodo(todotext: todotext.text);
-            }
-
-            todotext.text = "";
-          },
-          child: Text(
-            "Add",
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Text(
+            "Add TODO :",
             style: TextStyle(
-                color: Colors.blue, fontSize: 26, fontWeight: FontWeight.w300),
+              fontSize: 32,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-      ],
+          TextField(
+            autofocus: true,
+            controller: todotext,
+            decoration: InputDecoration(
+              hintText: "Enter Your TODO Task....",
+            ),
+            style: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          OutlinedButton(
+            onPressed: () {
+              if (todotext.text.isNotEmpty) {
+                widget.addtodo(todotext: todotext.text);
+              }
+
+              todotext.text = "";
+            },
+            child: Text(
+              "Add",
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w300),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

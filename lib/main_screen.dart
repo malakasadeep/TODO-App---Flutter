@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app/add_todo.dart';
 import 'package:todo_app/widgets/todolist.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -66,7 +67,57 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Drawer(),
+        drawer: Drawer(
+            child: Column(
+          children: [
+            Container(
+              height: 200,
+              color: Colors.blueGrey,
+              child: Center(
+                child: Text(
+                  "TODO App",
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text("About"),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("About"),
+                        content: Text(
+                            "This is a simple TODO app made using flutter"),
+                        actions: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("Close"),
+                          ),
+                        ],
+                      );
+                    });
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.email),
+              title: Text("Contact"),
+              onTap: () {
+                launchUrl(
+                  Uri.parse("mailto:sadeepmalaka2@gmail.com"),
+                );
+              },
+            )
+          ],
+        )),
         appBar: AppBar(
           centerTitle: true,
           title: Text("TODO App"),
