@@ -36,15 +36,35 @@ class _TodoListBuliderState extends State<TodoListBulider> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: widget.todolist.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            onTap: () {
-              onItemClicked(index: index);
-            },
-            title: Text(widget.todolist[index]),
-          );
-        });
+    return (widget.todolist.isEmpty)
+        ? Center(
+            child: Text("NO todo data available..."),
+          )
+        : ListView.builder(
+            itemCount: widget.todolist.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Dismissible(
+                key: UniqueKey(),
+                background: Container(
+                  color: Colors.green[300],
+                  child: Icon(Icons.check),
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 20),
+                ),
+                direction: DismissDirection.startToEnd,
+                onDismissed: (direction) {
+                  setState(() {
+                    widget.todolist.removeAt(index);
+                  });
+                  widget.updateLocalData();
+                },
+                child: ListTile(
+                  onTap: () {
+                    onItemClicked(index: index);
+                  },
+                  title: Text(widget.todolist[index]),
+                ),
+              );
+            });
   }
 }

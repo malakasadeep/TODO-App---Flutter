@@ -67,6 +67,30 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+            shape: CircleBorder(),
+            backgroundColor: Colors.grey,
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: MediaQuery.of(context).viewInsets,
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      height: 250,
+                      child: AddTodo(
+                        addtodo: addtodo,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }),
         drawer: Drawer(
             child: Column(
           children: [
@@ -121,34 +145,6 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("TODO App"),
-          actions: [
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return Padding(
-                      padding: MediaQuery.of(context).viewInsets,
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        height: 250,
-                        child: AddTodo(
-                          addtodo: addtodo,
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-              splashColor: Colors.blueAccent,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.add,
-                ),
-              ),
-            ),
-          ],
         ),
         body: TodoListBulider(
           todolist: todolist,
